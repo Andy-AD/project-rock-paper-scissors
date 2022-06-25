@@ -40,7 +40,35 @@
             }
         }
 
-        
+        function game() {
+
+            let playerScore = 0;
+            let computerScore = 0;
+            let resultOfTheGame;
+
+            for (let i = 0; i < 5; i++) {
+
+                let computerSelection = computerPlay();
+                let playerSelection = prompt("Make your selection!");
+
+                let resultOfTheRound = playRound(playerSelection, computerSelection);
+
+                alert(resultOfTheRound);
+
+                if (resultOfTheRound.includes("Win!")) {
+                    playerScore++;
+                } else if (resultOfTheRound.includes("Lose!")) {
+                    computerScore++;
+                }
+            }
+
+            resultOfTheGame = playerScore > computerScore ? "You Won!" 
+                            : playerScore < computerScore ? "You Lost!" 
+                            : "It's a Tie!";
+            console.log(`${resultOfTheGame} The score is ${playerScore} : ${computerScore}`);
+
+        }
+        game();
     </script>
 
 </body>
