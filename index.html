@@ -28,15 +28,15 @@
                 case "rock":
                     return computerSelection === "Paper" ? "You Lose! Paper beats Rock"
                         : computerSelection === "Scissors" ? "You Win! Rock beats Scissors"
-                            : "It's a Tie! Rock can't beat Rock"
+                            : "It's a Tie! You both chose Rock"
                 case "paper":
                     return computerSelection === "Scissors" ? "You Lose! Scissors beat Paper"
                         : computerSelection === "Rock" ? "You Win! Paper beats Rock"
-                            : "It's a Tie! Paper can't beat Paper"
+                            : "It's a Tie! You both chose Paper"
                 case "scissors":
                     return computerSelection === "Rock" ? "You Lose! Rock beats Scissors"
                         : computerSelection === "Paper" ? "You Win! Scissors beat Paper"
-                            : "It's a Tie! Scissors can't beat Scissors"
+                            : "It's a Tie! You both chose Scissors"
             }
         }
 
