@@ -11,12 +11,12 @@
 <body>
     <script>
 
-        function randomNumberFrom1to3() {
+        function getRandomNumberFrom1to3() {
             return (Math.floor(Math.random() * 3) + 1);
         }
 
         function computerPlay() {
-            let randomNumber = randomNumberFrom1to3();
+            let randomNumber = getRandomNumberFrom1to3();
             return randomNumber === 1 ? "Rock"
                 : randomNumber === 2 ? "Paper"
                     : "Scissors";
