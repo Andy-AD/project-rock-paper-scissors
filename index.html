@@ -9,7 +9,100 @@
 </head>
 
 <body>
+    <div class="header">
+        <h1>Rock - Paper - Scissors</h1>
+    </div>
+    <div class="container">
+        <button class="startButton">Start game</button>
+        <!-- <div class="result">
+
+        </div>
+        <div class="buttons">
+            <button class="rock">Rock</button>
+            <button class="paper">Paper</button>
+            <button class="scissors">Scissors</button>
+        </div>
+        <div class="score">
+
+        </div> -->
+    </div>
+    <div class="footer">Made by Andrii Dovhaliuk</div>
+
     <script>
+        let playerScore = 0;
+        let computerScore = 0;
+
+        const container = document.querySelector('.container');
+        const startButton = document.querySelector('.startButton');
+        const rockButton = document.createElement('button');
+        rockButton.classList.add('rock');
+        rockButton.textContent = "Rock";
+
+        const paperButton = document.createElement('button');
+        paperButton.classList.add('paper');
+        paperButton.textContent = "Paper";
+
+        const scissorsButton = document.createElement('button');
+        scissorsButton.classList.add('scissors');
+        scissorsButton.textContent = "Scissors";
+
+        const result = document.createElement('div');
+        result.classList.add('result');
+        result.textContent = "Make your choice!"
+
+        const score = document.createElement('div');
+        score.classList.add('score');
+        score.textContent = "Player - 0    Computer - 0";
+
+        const playAgainButton = document.createElement('button');
+        playAgainButton.textContent = "Play again";
+
+        startButton.addEventListener('click', startGame);
+        playAgainButton.addEventListener('click', reset);
+
+        function startGame() {
+            startButton.remove();
+            createGame();
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    let playersChoice = e.target.className;
+                    game(playersChoice);
+                    score.textContent = `Player - ${playerScore} \n Computer - ${computerScore}`;
+                    if (playerScore === 5) {
+                        endGame("You won the game!");
+                    } else if (computerScore === 5) {
+                        endGame("You lost the game!");
+                    }
+                });
+            });
+        }
+
+        function createGame() {
+            container.appendChild(result);
+            container.appendChild(rockButton);
+            container.appendChild(paperButton);
+            container.appendChild(scissorsButton);
+            container.appendChild(score);
+        }
+
+        function endGame(text) {
+            rockButton.remove();
+            paperButton.remove();
+            scissorsButton.remove();
+            score.remove();
+            result.textContent = text;
+            container.appendChild(playAgainButton);
+        }
+
+        function reset() {
+            playerScore = 0;
+            computerScore = 0;
+            score.textContent = "Player - 0    Computer - 0";
+            playAgainButton.remove();
+            result.textContent = "New Game! Make your choice!";
+            startGame();
+        }
 
         function getRandomNumberFrom1to3() {
             return (Math.floor(Math.random() * 3) + 1);
@@ -40,35 +133,17 @@
             }
         }
 
-        function game() {
-
-            let playerScore = 0;
-            let computerScore = 0;
+        function game(playerChoice) {
             let resultOfTheGame;
-
-            for (let i = 0; i < 5; i++) {
-
-                let computerSelection = computerPlay();
-                let playerSelection = prompt("Make your selection!");
-
-                let resultOfTheRound = playRound(playerSelection, computerSelection);
-
-                alert(resultOfTheRound);
-
-                if (resultOfTheRound.includes("Win!")) {
-                    playerScore++;
-                } else if (resultOfTheRound.includes("Lose!")) {
-                    computerScore++;
-                }
+            let computerSelection = computerPlay();
+            let resultOfTheRound = playRound(playerChoice, computerSelection);
+            result.textContent = `${resultOfTheRound}`;
+            if (resultOfTheRound.includes("Win!")) {
+                playerScore++;
+            } else if (resultOfTheRound.includes("Lose!")) {
+                computerScore++;
             }
-
-            resultOfTheGame = playerScore > computerScore ? "You Won!" 
-                            : playerScore < computerScore ? "You Lost!" 
-                            : "It's a Tie!";
-            console.log(`${resultOfTheGame} The score is ${playerScore} : ${computerScore}`);
-
         }
-        game();
     </script>
 
 </body>
