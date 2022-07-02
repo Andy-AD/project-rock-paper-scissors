@@ -6,6 +6,55 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+    <style>
+        body {
+            width: 95vw;
+            height: 95vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header {
+            display: flex;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 70px;
+        }
+
+        button {
+            background-color: white;
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 20px;
+            width: 200px;
+        }
+
+        button:hover {
+            background-color: black;
+            color: white;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .result {
+            font-size: 40px;
+            text-align: center;
+        }
+
+        .score {
+            font-size: 30px;
+            text-align: center;
+        }
+        
+    </style>
 </head>
 
 <body>
@@ -14,17 +63,6 @@
     </div>
     <div class="container">
         <button class="startButton">Start game</button>
-        <!-- <div class="result">
-
-        </div>
-        <div class="buttons">
-            <button class="rock">Rock</button>
-            <button class="paper">Paper</button>
-            <button class="scissors">Scissors</button>
-        </div>
-        <div class="score">
-
-        </div> -->
     </div>
     <div class="footer">Made by Andrii Dovhaliuk</div>
 
@@ -59,23 +97,27 @@
 
         startButton.addEventListener('click', startGame);
         playAgainButton.addEventListener('click', reset);
+        playAgainButton.addEventListener('click', startGame);
 
         function startGame() {
             startButton.remove();
             createGame();
             const buttons = document.querySelectorAll('button');
+            console.log(buttons)
             buttons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    let playersChoice = e.target.className;
-                    game(playersChoice);
-                    score.textContent = `Player - ${playerScore} \n Computer - ${computerScore}`;
-                    if (playerScore === 5) {
-                        endGame("You won the game!");
-                    } else if (computerScore === 5) {
-                        endGame("You lost the game!");
-                    }
-                });
+                button.addEventListener('click', buttonHandler);
             });
+        }
+
+        function buttonHandler(e) {
+            let playersChoice = e.target.className;
+            game(playersChoice);
+            score.textContent = `Player - ${playerScore} \n Computer - ${computerScore}`;
+            if (playerScore === 5) {
+                endGame("You won the game!");
+            } else if (computerScore === 5) {
+                endGame("You lost the game!");
+            }
         }
 
         function createGame() {
@@ -101,7 +143,6 @@
             score.textContent = "Player - 0    Computer - 0";
             playAgainButton.remove();
             result.textContent = "New Game! Make your choice!";
-            startGame();
         }
 
         function getRandomNumberFrom1to3() {
@@ -134,7 +175,6 @@
         }
 
         function game(playerChoice) {
-            let resultOfTheGame;
             let computerSelection = computerPlay();
             let resultOfTheRound = playRound(playerChoice, computerSelection);
             result.textContent = `${resultOfTheRound}`;
